@@ -1,6 +1,5 @@
 'use strict';
 
-console.log("we in it boys")
 
 var app = angular.module("MyApp", ["ngStorage", "ui.bootstrap"]);
 

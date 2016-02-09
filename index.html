@@ -37,22 +37,27 @@
         </div>
         <button type="submit" class="btn btn-primary">Add Contact</button>
       </form>
-      <pre>Sorting predicate = {{predicate}}; reverse = {{reverse}}</pre>
+
+      <div class="form-group">
+        <label for="filter">Phone</label>
+        <input ng-model="filterText" class="form-control", type="text", id="filter">
+      </div>
+
       <table class="table table-hover">
         <thead>
            <tr>
-            <th ng-click="order('name')">Name</th>
+            <th ng-click="order('name')">Name <span class="glyphicon glyphicon-sort"></span></th>
               <span class="sortorder" ng-show="predicate === 'name'" ng-class="{reverse:reverse}"></span>
-            <th ng-click="order('phone')">Phone</th>
+            <th ng-click="order('phone')">Phone <span class="glyphicon glyphicon-sort"></span></th>
               <span class="sortorder" ng-show="predicate === 'phone'" ng-class="{reverse:reverse}"></span>
-            <th ng-click="order('email')">Email</th>
+            <th ng-click="order('email')">Email <span class="glyphicon glyphicon-sort"></span></th>
               <span class="sortorder" ng-show="predicate === 'email'" ng-class="{reverse:reverse}"></span>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="obj in contacts | orderBy:predicate:reverse track by $index">
+          <tr ng-repeat="obj in contacts | orderBy:predicate:reverse | filter: filterText track by $index">
             <td ng-repeat="(key , value) in obj">{{ value }}</td>
             <td>
               <button class="btn btn-success glyphicon glyphicon-edit" ng-click="editTask($index)"></button>
