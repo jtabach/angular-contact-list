@@ -17,17 +17,21 @@ app.controller('myCtrl', ['$scope', '$localStorage', function($scope, $localStor
 	// 	{ name: "Tommy Boy", phone: 666555555, email: "tommy@me.com"}
 	// ];
 
-	var data = JSON.stringify($scope.contacts);
-
 	$scope.storage = $localStorage.$default({
-		contacts: data
+		contacts: JSON.stringify($scope.contacts)
 	})
 
 	$scope.keys = Object.keys;
 
 	$scope.addContact = function() {
-		$scope.contacts.push($scope.contact);
+		var newContact = {
+			name: $scope.contact.name,
+			phone: $scope.contact.phone,
+			email: $scope.contact.email
+		}; 
+		$scope.contacts.push(newContact);
 		updateLocalStorage();
+		this.contact = {};
 	}
 
 	$scope.removeTask = function(){
@@ -35,6 +39,13 @@ app.controller('myCtrl', ['$scope', '$localStorage', function($scope, $localStor
 		$scope.contacts.splice(index, 1);
 		updateLocalStorage();
 	}
+
+	$scope.predicate = 'name';
+	$scope.reverse = true;
+	$scope.order = function(predicate) {
+    $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+    $scope.predicate = predicate;
+  };
 
 	$scope.editTask = function(index) {
 

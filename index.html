@@ -22,7 +22,7 @@
     <h1 class="text-center">Contact List</h1>
     <div ng-controller='myCtrl'>
       
-      <form class="form-group">
+      <form class="form-group" ng-submit="addContact()">
         <div class="form-group">
           <label for="exampleInputName2">Name</label>
           <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe" ng-model="contact.name" required>
@@ -35,19 +35,24 @@
           <label for="exampleInputTel2">Phone</label>
           <input type="tel" class="form-control" id="exampleInputTel2" placeholder="(555) 555-5555" ng-model="contact.phone" required>
         </div>
-        <button type="submit" ng-click="addContact()" class="btn btn-primary">Add Contact</button>
+        <button type="submit" class="btn btn-primary">Add Contact</button>
       </form>
-
+      <pre>Sorting predicate = {{predicate}}; reverse = {{reverse}}</pre>
       <table class="table table-hover">
         <thead>
            <tr>
-            <th ng-repeat="(key, value) in contacts[0]">{{key}}</th>
+            <th ng-click="order('name')">Name</th>
+              <span class="sortorder" ng-show="predicate === 'name'" ng-class="{reverse:reverse}"></span>
+            <th ng-click="order('phone')">Phone</th>
+              <span class="sortorder" ng-show="predicate === 'phone'" ng-class="{reverse:reverse}"></span>
+            <th ng-click="order('email')">Email</th>
+              <span class="sortorder" ng-show="predicate === 'email'" ng-class="{reverse:reverse}"></span>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="obj in contacts track by $index">
+          <tr ng-repeat="obj in contacts | orderBy:predicate:reverse track by $index">
             <td ng-repeat="(key , value) in obj">{{ value }}</td>
             <td>
               <button class="btn btn-success glyphicon glyphicon-edit" ng-click="editTask($index)"></button>
