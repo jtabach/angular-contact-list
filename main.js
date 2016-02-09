@@ -33,7 +33,7 @@ app.controller('myCtrl', ['$scope', '$localStorage', function($scope, $localStor
 		this.contact = {};
 	}
 
-	$scope.removeTask = function(){
+	$scope.removeContact = function(){
 		var index = $scope.contacts.indexOf(this.obj);
 		$scope.contacts.splice(index, 1);
 		updateLocalStorage();
@@ -46,9 +46,16 @@ app.controller('myCtrl', ['$scope', '$localStorage', function($scope, $localStor
     $scope.predicate = predicate;
   };
 
-	$scope.editTask = function(index) {
-
+	$scope.editContact = function(contact) {
+		console.log(this.obj);
+		$scope.editContact = this.obj;
+		$('#myModal').modal('show'); 
 	}
+
+	$scope.saveEdits = function() {    
+    updateLocalStorage();
+    $('#myModal').modal('hide');
+  };
 
 	function updateLocalStorage() {
 		$localStorage.contacts = JSON.stringify($scope.contacts);

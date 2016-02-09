@@ -9,6 +9,7 @@
   <script data-require="angular.js@1.5.0" data-semver="1.5.0" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-animate.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.2.js"></script>
   <script src="main.js"></script>
 
@@ -39,7 +40,7 @@
       </form>
 
       <div class="form-group">
-        <label for="filter">Phone</label>
+        <label for="filter">Search</label>
         <input ng-model="filterText" class="form-control", type="text", id="filter">
       </div>
 
@@ -60,14 +61,44 @@
           <tr ng-repeat="obj in contacts | orderBy:predicate:reverse | filter: filterText track by $index">
             <td ng-repeat="(key , value) in obj">{{ value }}</td>
             <td>
-              <button class="btn btn-success glyphicon glyphicon-edit" ng-click="editTask($index)"></button>
+              <button class="btn btn-success glyphicon glyphicon-edit" ng-click="editContact(contact)"></button>
             </td>
             <td>
-              <button class="btn btn-danger glyphicon glyphicon-trash" ng-click="removeTask($index)"></button>
+              <button class="btn btn-danger glyphicon glyphicon-trash" ng-click="removeContact()"></button>
             </td>
           </tr>
         </tbody>
       </table>
+
+      <div class="modal fade" tabindex="-1" role="dialog" id='myModal'>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+              <form class="form-group">
+                <div class="form-group">
+                  <label for="nameLabel">Name</label>
+                  <input ng-model='editContact.name' type="text" class="form-control" placeholder="Name">
+                </div>
+                <div class="form-group">
+                  <label for="colorLabel">Email</label>
+                  <input ng-model='editContact.email' type="text" class="form-control"  placeholder="Color">
+                </div>
+                <div class="form-group">
+                  <label for="costLabel">Phone</label>
+                  <input ng-model='editContact.phone' type="text" class="form-control" placeholder="Cost"></input>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button ng-click='saveEdits()' type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
    </div>
   </div>
