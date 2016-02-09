@@ -2,34 +2,45 @@
 
 console.log("we in it boys")
 
-var app = angular.module("MyApp", ["ngStorage"]);
+var app = angular.module("MyApp", ["ngStorage", "ui.bootstrap"]);
 
-app.controller('myCtrl', ['$scope', function($scope) {
+app.controller('myCtrl', ['$scope', '$localStorage', function($scope, $localStorage) {
 
-	$scope.arrayOfObjects = [
-		{name: "bob", size: "small", money: 10},
-		{name: "bob", size: "small", money: 10},
-		{name: "bob", size: "small", money: 10},
-		{name: "bob", size: "small", money: 10},
-		{name: "bob", size: "small", money: 10},
-		{name: "bob", size: "small", money: 10},
-		{name: "goe", size: "medium", money: 78},
-		{name: "moe", size: "large", money: 89.7}	
-	];
-	$scope.keys = Object.keys($scope.arrayOfObjects[0]);
+	if ($localStorage.contacts) {
+		$scope.contacts = JSON.parse($localStorage.contacts);
+	} else {
+		$scope.contacts = [];
+	}
+
+	// $scope.contacts = [
+	// 	{ name: "Johnny Boy", phone: 555555555, email: "johnny@me.com"},
+	// 	{ name: "Tommy Boy", phone: 666555555, email: "tommy@me.com"}
+	// ];
+
+	var data = JSON.stringify($scope.contacts);
+
+	$scope.storage = $localStorage.$default({
+		contacts: data
+	})
+
+	$scope.keys = Object.keys;
 
 	$scope.addContact = function() {
 		$scope.contacts.push($scope.newContact);
-		
 	}
 
 	$scope.removeTask = function(){
-		var index = $scope.arrayOfObjects.indexOf(this.obj);
-		$scope.arrayOfObjects.splice(index, 1);
+		var index = $scope.contacts.indexOf(this.obj);
+		$scope.contacts.splice(index, 1);
+		updateLocalStorage();
 	}
 
 	$scope.editTask = function(index) {
 
+	}
+
+	function updateLocalStorage() {
+		$localStorage.contacts = JSON.stringify($scope.contacts);
 	}
 
 }]);
