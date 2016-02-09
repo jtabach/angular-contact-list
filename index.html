@@ -8,34 +8,56 @@
   <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
   <script data-require="angular.js@1.5.0" data-semver="1.5.0" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-animate.min.js"></script>
+  <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.2.js"></script>
   <script src="main.js"></script>
+
 
 </head>
 <body ng-app="MyApp">
+
+  
+
   <div class="container">
-   <h1 class="text-center">Contact List</h1>
-   <div ng-controller='myCtrl'>
-    <table class="table table-hover">
-      <thead>
-         <tr>
-          <th ng-repeat="value in keys">{{value}}</th>
-          <th>Edit</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="obj in contacts">
-          <td ng-repeat="(key , value) in obj">{{ value }}</td>
-          <td>
-            <button class="btn btn-success glyphicon glyphicon-edit" ng-click="editTask($index)"></button>
-          </td>
-          <td>
-            <button class="btn btn-danger glyphicon glyphicon-trash" ng-click="removeTask($index)"></button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <h1 class="text-center">Contact List</h1>
+    <div ng-controller='myCtrl'>
+      
+      <form class="form-group">
+        <div class="form-group">
+          <label for="exampleInputName2">Name</label>
+          <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe" ng-model="contact.name" required>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail2">Email</label>
+          <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com" ng-model="contact.email" required>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputTel2">Phone</label>
+          <input type="tel" class="form-control" id="exampleInputTel2" placeholder="(555) 555-5555" ng-model="contact.phone" required>
+        </div>
+        <button type="submit" ng-click="addContact()" class="btn btn-primary">Add Contact</button>
+      </form>
+
+      <table class="table table-hover">
+        <thead>
+           <tr>
+            <th ng-repeat="(key, value) in contacts[0]">{{key}}</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="obj in contacts track by $index">
+            <td ng-repeat="(key , value) in obj">{{ value }}</td>
+            <td>
+              <button class="btn btn-success glyphicon glyphicon-edit" ng-click="editTask($index)"></button>
+            </td>
+            <td>
+              <button class="btn btn-danger glyphicon glyphicon-trash" ng-click="removeTask($index)"></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
    </div>
   </div>

@@ -26,7 +26,8 @@ app.controller('myCtrl', ['$scope', '$localStorage', function($scope, $localStor
 	$scope.keys = Object.keys;
 
 	$scope.addContact = function() {
-		$scope.contacts.push($scope.newContact);
+		$scope.contacts.push($scope.contact);
+		updateLocalStorage();
 	}
 
 	$scope.removeTask = function(){
