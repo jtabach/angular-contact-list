@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Contact List</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body ng-app="MyApp">
+	<div class="container">
+	 <h1 class="text-center">Contact List</h1>
+   <div ng-controller='myCtrl'>
+    <table class="table table-hover">
+      <thead>
+         <tr>
+          <th ng-repeat="value in keys">{{value}}</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="obj in arrayOfObjects">
+          <td ng-repeat="(key , value) in obj">{{ key==="money" ? (value|currency) : value }}</td>
+          <td>
+            <button class="btn btn-success glyphicon glyphicon-edit" ng-click="editTask($index)"></button>
+          </td>
+          <td>
+            <button class="btn btn-danger glyphicon glyphicon-trash" ng-click="removeTask($index)"></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+   </div>
+	</div>
+
+  <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+	<script src="main.js"></script>
+</body>
+</html>
